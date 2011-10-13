@@ -1635,7 +1635,9 @@ update(Tombloo.Service.extractors, {
 		var canonical = $x('//link[@rel="canonical"]/@href', doc);
 		if(canonical && !new RegExp(getPref('ignoreCanonical')).test(ctx.href))
 			ctx.href = resolveRelativePath(canonical, ctx.href);
-		ctx.href = ctx.href.replace(/\/#!\//, '/');
+		
+		if(this['Quote - Twitter'].check(ctx))
+			ctx.href = ctx.href.replace(/\/#!\//, '/');
 		
 		return withWindow(ctx.window, function(){
 			return maybeDeferred(ext.extract(ctx)).addCallback(function(ps){
